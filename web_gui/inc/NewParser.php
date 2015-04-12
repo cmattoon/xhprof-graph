@@ -46,7 +46,10 @@ class NewParser {
 	    $class = '';
 	    if (strpos($method, '::')) {
 		list ($class, $name) = explode('::', $method);
-	    }	    
+	    }
+	    if (in_array($class, array('run_init', 'load'))) {
+		return false;
+	    }
 	    // Check to see if it exists
 	    $query = new Everyman\Neo4j\Cypher\Query($this->_client, 
 						     'MATCH n WHERE (HAS(n.name) AND HAS(n.class)) AND (n.name = {name} AND n.class = {class}) RETURN n', 
@@ -81,20 +84,23 @@ class NewParser {
 	    return;
 	}
 
-	$main = $this->getNode('main()');
+	$main = $this->getNode($this->runId.'::main()');
 	$main->setProperty('runId', $this->runId)->save();
 	$main_stats = array();
 	foreach ($this->_raw as $callable => $stats) {
 	    if ($callable == 'main()') continue;
 	    echo "{$callable}\n";
 	    list($parent, $child) = explode('==>', $callable);
+	    
 	    $pNode = $this->getNode($parent);
 	    $cNode = $this->getNode($child);
 
-	    $this->addChildCall($pNode, $cNode, $stats);
-	    foreach ($stats as $k=>$v) {
-		if (isset($main_stats[$k])) $main_stats[$k] = 0;
-		$main_stats[$k] += $v;
+	    if ($pNode && $cNode) {
+		$this->addChildCall($pNode, $cNode, $stats);
+		foreach ($stats as $k=>$v) {
+		    if (isset($main_stats[$k])) $main_stats[$k] = 0;
+		    $main_stats[$k] += $v;
+		}
 	    }
 	}
 	// Write overall stats for main()

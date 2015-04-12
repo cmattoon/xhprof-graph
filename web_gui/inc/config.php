@@ -11,4 +11,11 @@ $config = array(
     'XHPROF_DIR' => '/tmp/xhdata/'
     
 );
-
+foreach ($config as $k=>$v) {
+    define($k, $v);
+}
+function get_client() {
+    $client = new Everyman\Neo4j\Client(DB_HOST, DB_PORT);
+    $client->getTransport()->setAuth(DB_USER, DB_PASS);
+    return $client;
+}

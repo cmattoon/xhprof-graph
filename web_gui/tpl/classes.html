@@ -1,0 +1,26 @@
+<div class="uk-container uk-container-center">
+    <div class="uk-grid">
+	<div class="uk-width-1-1">
+	    <h2>Most Expensive Classes/Methods</h2>
+	    <table class="uk-table uk-table-condensed uk-table-hover">
+		<thead>
+		    <tr>
+			<th>Class Name</th>
+			<th>Method Name</th>
+			<th>Wall Time (Avg)</th>
+			<th>CPU Usage (Avg)</th>
+		    </tr>
+		</thead>
+		<tbody>
+		    {% for klass in classes %}
+		    <tr>
+			<td>{{klass.class}}</td>
+			<td>{{klass.name}}</td>
+			<td>{{klass.wt|number_format}}</td>
+			<td>{{klass.cpu|number_format}}</td>
+		    </tr>		
+		    {% endfor %}
+	    </table>
+	</div>
+    </div>
+</div>
