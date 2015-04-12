@@ -1,0 +1,40 @@
+@import "compass/css3";
+#shell {
+    border:1px solid #000;
+    
+    form.cmd {
+	position:relative;
+	min-height: 4em;
+	
+	.query-box,
+	.prompt {
+	    @include box-sizing(border-box);
+	    position: absolute;
+	    top:0;
+	    left:0;
+	}
+
+	.query-box {
+	    width:100%;
+	    outline: none;
+	    border: none;
+	    z-index:90;
+	    height:4em;
+	    padding-left:5em;
+	}
+	.prompt { 
+	    vertical-align:top;
+	    width: 4em;
+	    color: blue;
+	    z-index:100;
+	}
+	input[type="submit"] {
+	    position: absolute;
+	    right: 0;
+	    top: 0;
+	    bottom: 0;
+	    z-index: 99;
+	    width: 5em;
+	}
+    }
+}

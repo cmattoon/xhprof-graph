@@ -1,7 +1,7 @@
 <div class="uk-container uk-container-center">
     <div class="uk-grid">
 	<div class="uk-width-1-1">
-	    <h2>Most Expensive Classes/Methods</h2>
+	    <h2>Class Info: {{class}} </h2>
 	    <table class="uk-table uk-table-condensed uk-table-hover">
 		<thead>
 		    <tr>
@@ -12,18 +12,14 @@
 		    </tr>
 		</thead>
 		<tbody>
-		    {% for klass in classes %}
+		    {% for klass in data %}
 		    <tr>
 			<td>
 			    <a href="class-info.php?class={{klass.class}}">
 				{{klass.class}}
 			    </a>
 			</td>
-			<td>
-			    <a href="method-info.php?class={{klass.class}}&method={{klass.name}}">
-				{{klass.name}}
-			    </a>
-			</td>
+			<td>{{klass.name}}</td>
 			<td>{{klass.wt|number_format}}</td>
 			<td>{{klass.cpu|number_format}}</td>
 		    </tr>		

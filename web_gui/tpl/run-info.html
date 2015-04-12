@@ -1,0 +1,43 @@
+<div class="uk-container uk-container-center">
+    <div class="uk-grid">
+	<h2>Run Info: {{runId}}</h2>
+	<div class="uk-width-1-1">
+	    <table class="uk-table uk-table-condensed uk-table-hover">
+		<thead>
+		    <tr>
+			<th>Method</th>
+			<th>Count</th>
+			<th>Wall Time</th>
+			<th>CPU</th>
+			<th>Mem Usage</th>
+			<th>Peak Mem Usage</th>
+		    </tr>
+		</thead>
+		<tbody>
+		    {% for run in runs %}
+		    <tr>
+			<td>{% if (run.class) %}
+			    <a href="class-info.php?class={{run.class}}">
+				{{run.class}}
+			    </a>
+			    ::
+			    <a href="method-info.php?method={{run.name}}&class={{run.class}}">
+				{{run.name}}
+			    </a>
+			    {% else %}
+			    <a href="method-info.php?method={{run.name}}">
+				{{run.name}}
+			    </a>
+			    {% endif %}
+			</td>
+			<td>{{run.ct}}</td>
+			<td>{{run.wt}}</td>
+			<td>{{run.cpu}}</td>
+			<td>{{run.mu}}</td>
+			<td>{{run.pmu}}</td>
+		    </tr>		
+		    {% endfor %}
+	    </table>
+	</div>
+    </div>
+</div>
