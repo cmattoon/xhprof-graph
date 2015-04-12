@@ -9,6 +9,8 @@
 			<th>Method Name</th>
 			<th>Wall Time (Avg)</th>
 			<th>CPU Usage (Avg)</th>
+			<th>Mem Usage (Avg)</th>
+			<th>Peak Mem Usage (Avg)</th>
 		    </tr>
 		</thead>
 		<tbody>
@@ -19,9 +21,15 @@
 				{{klass.class}}
 			    </a>
 			</td>
-			<td>{{klass.name}}</td>
+			<td>
+			    <a href="method-info.php?class={{klass.class}}&method={{klass.name}}">
+				{{klass.name}}
+			    </a>
+			</td>
 			<td>{{klass.wt|number_format}}</td>
 			<td>{{klass.cpu|number_format}}</td>
+			<td>{{klass.mu|number_format}}</td>
+			<td>{{klass.pmu|number_format}}</td>
 		    </tr>		
 		    {% endfor %}
 	    </table>

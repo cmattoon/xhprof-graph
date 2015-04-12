@@ -7,8 +7,11 @@
 		    <tr>
 			<th>Class Name</th>
 			<th>Method Name</th>
+			<th>Count (Avg)</th>
 			<th>Wall Time (Avg)</th>
 			<th>CPU Usage (Avg)</th>
+			<th>Mem Usage (Avg)</th>
+			<th>Peak Mem (Avg)</th>
 		    </tr>
 		</thead>
 		<tbody>
@@ -24,8 +27,11 @@
 				{{klass.name}}
 			    </a>
 			</td>
+			<td>{{klass.ct|number_format}}</td>
 			<td>{{klass.wt|number_format}}</td>
 			<td>{{klass.cpu|number_format}}</td>
+			<td>{{klass.mu|number_format}}</td>
+			<td>{{klass.pmu|number_format}}</td>
 		    </tr>		
 		    {% endfor %}
 	    </table>

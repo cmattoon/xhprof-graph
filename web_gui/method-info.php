@@ -9,7 +9,7 @@ $data = array();
 if ($method) {
     $query = "MATCH (n:Callable)<-[r:called]-(m) 
 WHERE (HAS(n.name) AND HAS(n.class) AND n.class = {class} AND n.name = {name})
-RETURN n.class, n.name, r.wt, r.ct, r.cpu, r.mu, r.pmu
+RETURN n.class, n.name, r.wt, r.ct, r.cpu, r.mu, r.pmu,r.runId
 ORDER BY r.wt DESC, r.cpu DESC";
 
     $q = new Everyman\Neo4j\Cypher\Query($client, $query, 
@@ -21,6 +21,7 @@ ORDER BY r.wt DESC, r.cpu DESC";
 	$data[] = array(
 	    'class' => $r['n.class'],
 	    'name' => $r['n.name'],
+	    'run' => $r['r.runId'],
 	    'wt' => $r['r.wt'],
 	    'cpu' => $r['r.cpu'],
 	    'mu' => $r['r.mu'],

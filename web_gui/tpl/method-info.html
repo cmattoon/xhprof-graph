@@ -7,6 +7,7 @@
 		    <tr>
 			<th>Class Name</th>
 			<th>Method Name</th>
+			<th>Run</th>
 			<th>Wall Time</th>
 			<th>CPU Usage</th>
 			<th>Memory Usage</th>
@@ -22,6 +23,11 @@
 			    </a>
 			</td>
 			<td>{{klass.name}}</td>
+			<td>
+			    <a href="run-info.php?run={{klass.run}}">
+				{{klass.run}}
+			    </a>
+			</td>
 			<td>{{klass.wt|number_format}}</td>
 			<td>{{klass.cpu|number_format}}</td>
 			<td>{{klass.mu|number_format}}</td>
