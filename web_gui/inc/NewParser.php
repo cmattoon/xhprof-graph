@@ -86,6 +86,7 @@ class NewParser {
 
 	$main = $this->getNode($this->runId.'::main()');
 	$main->setProperty('runId', $this->runId)->save();
+	$main->setProperty('scriptName', $this->script)->save();
 	$main_stats = array();
 	foreach ($this->_raw as $callable => $stats) {
 	    if ($callable == 'main()') continue;

@@ -5,7 +5,9 @@
 
 	    <p>This isn't quite ready to go yet, but feel free to take
 		a look around. Maybe try uploading a file?</p>
-
+	    {% for msg in msgs %}
+	    <div>{{msg}}</div>
+	    {% endfor %}
 
 	    <form id="frmUploadFile" action="" method="post" 
 		  enctype="multipart/form-data" class="uk-form">

@@ -32,11 +32,11 @@
 		    {% for run in runs %}
 		    <tr>
 			<td>
-			    <a href="run-info.php?run={{run}}">
-				{{run}}
+			    <a href="run-info.php?run={{run.runId}}">
+				{{run.runId}}
 			    </a>
 			</td>
-			<td>--</td>
+			<td>{{run.scriptName}}</td>
 			<td>--</td>
 		    </tr>		
 		    {% endfor %}
