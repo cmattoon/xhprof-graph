@@ -1,4 +1,7 @@
 <div class="uk-container uk-container-center">
+  {% for msg in msgs %}
+  <div>{{msg}}</div>
+  {% endfor %}
     <div class="uk-grid">
 	<div class="uk-width-1-2">
 	    <h2>Run Info</h2>
@@ -20,6 +23,14 @@
 	    </dl>
 	</div>
 	<div class="uk-width-1-2">
+            <form id="frmUploadFile" action="" method="post"
+                  enctype="multipart/form-data" class="uk-form">
+                <fieldset>
+                    <legend>Upload *.xhprof File</legend>
+                    <input type="file" name="xhprof_file">
+                    <input type="submit" class="uk-button uk-button-primary" value="Upload">
+                </fieldset>
+            </form>
 	    <table class="uk-table uk-table-condensed uk-table-hover">
 		<thead>
 		    <tr>
