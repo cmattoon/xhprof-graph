@@ -4,6 +4,8 @@
 	<title>XHProf Web Interface</title>
 	<link rel="stylesheet" href="css/uikit.almost-flat.min.css">
 	<link rel="stylesheet" href="css/style.css">
+	<script src="js/jquery-2.1.3.min.js"></script>
+	<script src="js/uikit.min.js"></script>
     </head>
     <body>
 	<nav class="uk-navbar">
@@ -35,12 +37,22 @@
 	    </ul>
 	    <div class="uk-navbar-flip">
 		<ul class="uk-navbar-nav">
-		    <li class="uk-parent">
-			<ul>
-			    <li><i class="uk-icon-space-shuttle"></i></li>
-			</ul>
-		    </li>
-		    <li><a href=""><i class="uk-icon-github"></i> GitHub</a></li>
+		  <li class="uk-parent" data-uk-dropdown>
+		    <a href="#">Mode (beta)<i class="uk-icon-caret-down"></i></a>
+		    <div class="uk-dropdown uk-dropdown-navbar">
+		      <ul class="uk-nav uk-nav-navbar">
+			<li><a href="#"><i class="uk-icon-paper-plane"></i> Mode A</a></li>
+			<li><a href="#"><i class="uk-icon-coffee"></i> Mode B</a></li>
+			<li><a href="#"><i class="uk-icon-plane"></i> Mode C</a></li>
+			<li><a href="#"><i class="uk-icon-fighter-jet"></i> Mode D</a></li>
+			<li><a href="#"><i class="uk-icon-space-shuttle"></i> Mode E</a></li>
+			<li><a href="#"><i class="uk-icon-rocket"></i> Mode F</a></li>
+		      </ul>
+		    </div>
+		  </li>
+		  <li><a href="https://github.com/cmattoon/xhprof-graph" target="_blank">
+		      <i class="uk-icon-github"></i> GitHub
+		  </a></li>
 		</ul>
 	    </div>
 	</nav>

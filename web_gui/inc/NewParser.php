@@ -12,10 +12,8 @@ class NewParser {
     public static function importAll($dir) {
 	$p = new NewParser($file);
 	foreach (glob("{$dir}/*.xhprof") as $file) {
-	    echo "<div>Processing {$file}...</div>";
 	    $p->load(basename($file));
 	    $p->makeGraph();
-	    echo "<div>&nbsp;&nbsp;&nbsp;&nbsp;Done!</div>";
 	}
     }
     public function __construct($file) {
@@ -78,9 +76,7 @@ class NewParser {
     }
 
     public function makeGraph() {
-	echo "<hr>Making Graph...\n";
 	if (!$this->_raw) {
-	    echo "No data!"; 
 	    return;
 	}
 
@@ -90,7 +86,6 @@ class NewParser {
 	$main_stats = array();
 	foreach ($this->_raw as $callable => $stats) {
 	    if ($callable == 'main()') continue;
-	    echo "{$callable}\n";
 	    list($parent, $child) = explode('==>', $callable);
 	    
 	    $pNode = $this->getNode($parent);

@@ -2,15 +2,26 @@
     <div class="uk-grid">
 	<div class="uk-width-1-2">
 	    <h2>XHProf + Neo4J</h2>
-
-	    <p>This isn't quite ready to go yet, but feel free to take
-		a look around. Maybe try uploading a file?</p>
-	    {% for msg in msgs %}
-	    <div>{{msg}}</div>
-	    {% endfor %}
+	    
+	    <div class="uk-alert uk-alert-danger">
+	      This interface is still in development. It's working as a proof-of-concept,
+	      but I'm not sure stats are aggregating correctly. 
+	    </div>
+	    
+	    <div class="uk-alert">
+	      This isn't quite ready to go yet, but feel free to take
+	      a look around. Maybe try <a href="runs.php">uploading a file</a>?
+	    </div>
+	    
 
 	</div>
 	<div class="uk-width-1-2">
+	  <h2>To-Do List</h2>
+	  <ul>
+	    <li>Make sure stats aggregate correctly</li>
+	    <li>Dir listing of xhprof dir</li>
+	    <li>Watch the dir for new *.xhprof files and parse PRN</li>
+	  </ul>
 	</div>
     </div>
 </div>

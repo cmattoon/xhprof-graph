@@ -17,3 +17,4 @@ function _get($key, $default='') {
 function class_link($class) {
     return "<a href=\"class-info.php?class={$class}\">{$class}</a>";
 }
+

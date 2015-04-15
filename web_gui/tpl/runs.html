@@ -1,6 +1,9 @@
 <div class="uk-container uk-container-center">
   {% for msg in msgs %}
-  <div>{{msg}}</div>
+  <div class="uk-alert uk-alert-success">{{msg}}</div>
+  {% endfor %}
+  {% for err in errors %}
+  <div class="uk-alert uk-alert-danger">{{err}}</div>
   {% endfor %}
     <div class="uk-grid">
 	<div class="uk-width-1-2">

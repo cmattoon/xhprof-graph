@@ -4,7 +4,7 @@ $client = get_client();
 $query = "MATCH (n:Callable)<-[r:called]-(m) 
 WHERE (HAS(n.name) AND HAS(n.class) AND n.class <> '') 
 RETURN n.class, n.name, AVG(r.wt),SUM(r.ct),AVG(r.cpu),AVG(r.mu),AVG(r.pmu)
-ORDER BY AVG(r.wt) DESC, AVG(r.cpu) DESC";
+ORDER BY AVG(r.cpu) DESC, AVG(r.wt) DESC";
 
 $q = new Everyman\Neo4j\Cypher\Query($client, $query);
 $res = $q->getResultSet();

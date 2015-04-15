@@ -1,6 +1,8 @@
 <?php
 require_once('inc/config.php');
 $client = get_client();
+$errors = array();
+$msgs = array();
 
 /**
  * Handle *.xhprof file upload
@@ -14,8 +16,10 @@ if (isset($_FILES['xhprof_file'])) {
 	    $parser->makeGraph();
 	    $msgs[] = "Imported {$newfile}";	    
 	} else {
-	    $msgs[] = "Can't import {$file['tmp_name']}";
+	    $errors[] = "Can't import {$file['tmp_name']}";
 	}
+    } else {
+	$errors[] = "Error uploading file. Received code {$file['error']}";
     }
 }
 /**
@@ -39,4 +43,4 @@ foreach ($res as $r) {
 }
 
 $tpl = new Template();
-$tpl->displayPage(array('runs' => $runs, 'msgs'=>$msgs));
+$tpl->displayPage(array('runs' => $runs, 'msgs'=>$msgs, 'errors' => $errors));
