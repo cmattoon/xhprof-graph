@@ -4,7 +4,7 @@
  */
 class QueryList {
     protected $_client = null;
-
+    
     public function __construct() {
 	$this->_client = get_client();
     }
@@ -17,7 +17,20 @@ class QueryList {
 	$oQuery = new Everyman\Neo4j\Cypher\Query($this->_client, $query, $vars);
 	return $oQuery;
     }
-    
+    public function getScriptNameFromRunId($runId) {
+	$query = $this->getQuery("MATCH (n) 
+	    WHERE (HAS(n.runId) AND HAS(n.scriptName) AND n.scriptName <> '')
+		AND (n.runId = {runId})
+            RETURN n.scriptName", array('runId' => $runId));
+	$name = '';
+	$res = $query->getResultSet();
+	foreach ($res as $row) {
+	    if ($row['n.scriptName']) {
+		return $row['n.scriptName'];
+	    }
+	}
+    }
+
     /**
      * Gets all the stats from a given run.
      * @param string $runId
@@ -27,7 +40,7 @@ class QueryList {
 	$query = $this->getQuery("
 	    MATCH (n:Callable)<-[r:called]-(m)
 		WHERE ((HAS(r.runId) AND r.runId = {runId}) AND (HAS(m.name) AND m.name = 'main()'))
-		    RETURN n.name, n.class, r.runId, r.wt, r.cpu, r.mu, r.pmu, r.ct
+		    RETURN n.name, n.class, r.runId, r.wt, r.cpu, r.mu, r.pmu, r.ct, n.scriptName
 	    ORDER BY r.cpu DESC, r.wt DESC", array('runId' => $runId));
 	$stats = array();
 	foreach (($result = $query->getResultSet()) as $row) {

@@ -43,4 +43,8 @@ foreach ($res as $r) {
 }
 
 $tpl = new Template();
-$tpl->displayPage(array('runs' => $runs, 'msgs'=>$msgs, 'errors' => $errors));
+$tpl->displayPage(array(
+    'runs' => $runs, 
+    'msgs'=>$msgs, 
+    'errors' => $errors
+));

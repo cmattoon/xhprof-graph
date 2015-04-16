@@ -2,12 +2,18 @@
     <div class="uk-grid">
 	<div class="uk-width-1-1">
 	    <h2>Method Detail: {{class}} {{method}}</h2>
+	    {% if run and method %}
+	    <div class="uk-alert">
+		Clicking on a Run on this screen should take you to the 
+		per-run stats for this method (including child/parent funcs)
+	    </div>
+	    {% endif %}
 	    <table class="uk-table uk-table-condensed uk-table-hover">
 	      <caption>
 		This should show:
 		1) Average stats (@todo)
 		2) Individual stats, per run.
-		Maybe the calling method, too?
+		Maybe the calling method, too?		  
 	      </caption>
 		<thead>
 		    <tr>
@@ -30,7 +36,7 @@
 			</td>
 			<td>{{klass.name}}</td>
 			<td>
-			    <a href="run-info.php?run={{klass.run}}">
+			    <a href="method-info.php?class={{klass.class}}&method={{method}}&run={{klass.run}}">
 				{{klass.run}}
 			    </a>
 			</td>

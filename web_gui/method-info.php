@@ -3,9 +3,10 @@ require_once('inc/config.php');
 $client = get_client();
 $class = _get('class');
 $method = _get('method');
+$run = _get('run');
 
 $data = array();
-
+$ql = new QueryList();
 if ($method) {
     $query = "MATCH (n:Callable)<-[r:called]-(m) 
 WHERE (HAS(n.name) AND HAS(n.class) AND n.class = {class} AND n.name = {name})
@@ -32,4 +33,11 @@ ORDER BY r.wt DESC, r.cpu DESC";
 
 
 $tpl = new Template();
-$tpl->displayPage(array('data' => $data, 'method' => $method, 'class' => $class));
+$tpl->displayPage(array('data' => $data, 
+			'method' => $method, 
+			'class' => $class,
+			'bcclass' => $class,
+			'bcmethod' => $method,
+			'run' => $run,
+			'bcrun' => $run
+));

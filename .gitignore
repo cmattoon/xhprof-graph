@@ -1,5 +1,7 @@
 *~
 .sass-cache
 web_gui/vendor
+vendor
 composer.lock
+
 

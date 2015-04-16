@@ -1,0 +1,80 @@
+/* line 3, ../sass/jTerm.scss */
+#jTerm {
+  background: #111;
+  color: lime;
+  font-family: monospace;
+  width: 100%;
+  margin: 1em auto;
+  padding: 0;
+  border: 1px solid #333;
+  /* History Container */
+  /* History list */
+}
+/* line 12, ../sass/jTerm.scss */
+#jTerm div.hc,
+#jTerm div.cmd {
+  margin: 0 auto;
+  padding: 0;
+  -webkit-box-sizing: border-box;
+  -moz-box-sizing: border-box;
+  box-sizing: border-box;
+}
+/* line 18, ../sass/jTerm.scss */
+#jTerm div.hc {
+  overflow-y: scroll;
+  overflow-x: hidden;
+  height: 200px;
+  white-space: pre-wrap;
+}
+/* line 25, ../sass/jTerm.scss */
+#jTerm ul.hcl {
+  min-height: 400px;
+}
+/* line 28, ../sass/jTerm.scss */
+#jTerm ul.hcl li {
+  list-style: none;
+}
+/* line 31, ../sass/jTerm.scss */
+#jTerm ul.hcl li.jt-error {
+  color: red;
+}
+/* line 39, ../sass/jTerm.scss */
+#jTerm .fi {
+  position: relative;
+  max-width: 100%;
+  overflow: hidden;
+}
+/* line 44, ../sass/jTerm.scss */
+#jTerm .prompt {
+  display: -moz-inline-stack;
+  display: inline-block;
+  vertical-align: middle;
+  *vertical-align: auto;
+  zoom: 1;
+  *display: inline;
+  vertical-align: top;
+}
+/* line 48, ../sass/jTerm.scss */
+#jTerm button.bS {
+  visibility: hidden;
+}
+/* line 51, ../sass/jTerm.scss */
+#jTerm textarea.txt {
+  display: -moz-inline-stack;
+  display: inline-block;
+  vertical-align: middle;
+  *vertical-align: auto;
+  zoom: 1;
+  *display: inline;
+  background: #111;
+  color: lime;
+  vertical-align: top;
+  width: 80%;
+  height: 4em;
+  border: none;
+}
+/* line 60, ../sass/jTerm.scss */
+#jTerm textarea.txt:focus {
+  outline: none;
+  border: none;
+}

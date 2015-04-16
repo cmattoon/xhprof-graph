@@ -28,4 +28,4 @@ ORDER BY AVG(r.wt) DESC, AVG(r.cpu) DESC";
 
 
 $tpl = new Template();
-$tpl->displayPage(array('data' => $data, 'class' => $class));
+$tpl->displayPage(array('data' => $data, 'class' => $class, 'bcclass' => $class, 'bcmethod'=>'*'));

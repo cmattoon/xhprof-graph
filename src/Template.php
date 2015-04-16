@@ -17,8 +17,10 @@ class Template {
     }
     
     public function displayPage($vars=array()) {
+	$vars['allow_csv'] = true;
 	$tpl = str_replace(".php", '.html', $this->page);
-	echo $this->_twig->render('_header.html');
+	echo $this->_twig->render('_header.html', $vars);
+	echo $this->_twig->render('_breadcrumbs.html', $vars);
 	echo $this->_twig->render($tpl, $vars);
 	echo $this->_twig->render('_footer.html');
     }

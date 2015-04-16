@@ -1,0 +1,28 @@
+<div class="uk-container uk-container-center">
+    <ul class="uk-breadcrumb">
+	{% if bcscript %}
+	<li><a href="script-info.php?script={{bcscript}}">{{bcscript}}</a></li>
+	{% else %}
+	<li><span>Scripts</span></li>
+	{% endif %}
+	
+	{% if bcrun %}
+	<li><a href="run-info.php?run={{bcrun}}">{{bcrun}}</a></li>
+	{% else %}
+	<li><span>All Runs</span></li>
+	{% endif %}
+	
+	{% if bcmethod %}
+	{% if bcclass %}
+	<li><a href="class-info.php?class={{bcclass}}">{{bcclass}}</a></li>
+	{% else %}
+	<li><span class="noclass"></span>--</li>
+	{% endif %}
+	{% if bcmethod != '*' %}
+	<li><a href="method-info.php?class={{bcclass}}&method={{bcmethod}}">
+	    {{bcmethod}}
+	</a></li>
+	{% endif %}
+	{% endif %}
+    </ul>
+</div>

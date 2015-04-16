@@ -1,0 +1,65 @@
+@import "compass/css3";
+
+#jTerm {
+    background: #111;
+    color:lime;
+    font-family: monospace;
+    width: 100%;
+    margin: 1em auto;
+    padding: 0;
+    border: 1px solid #333;
+    div.hc,
+    div.cmd {
+	margin:0 auto;
+	padding: 0;
+	@include box-sizing(border-box);
+    }
+    /* History Container */
+    div.hc {
+	overflow-y: scroll;
+	overflow-x: hidden;
+	height:200px;
+	white-space: pre-wrap;
+    }
+    /* History list */
+    ul.hcl {
+	min-height:400px;
+	
+	li {
+	    list-style:none;
+
+	    &.jt-error {
+		color: red;
+	    }
+	}
+    }
+    div.cmd {
+
+    }
+    .fi {
+	position: relative;
+	max-width: 100%;
+	overflow: hidden;
+    }
+    .prompt {
+	@include inline-block;
+	vertical-align: top;
+    }
+    button.bS {
+	visibility: hidden;
+    }
+    textarea.txt {
+	@include inline-block;
+	background: #111;
+	color: lime;
+	vertical-align: top;
+	width: 80%;
+	height: 4em;
+	border:none;
+	
+	&:focus { 
+	    outline: none;
+	    border:none;
+	}
+    }
+}
