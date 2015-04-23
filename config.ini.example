@@ -1,7 +1,7 @@
 DB_HOST = "localhost"
 DB_PORT = "7474"
 DB_USER = "neo4j"
-DB_PASS = "password"
+DB_PASS = "neo4j"
 xhprof_lib = "../../xhprof/"
 xhprof_dir = "/tmp/xhdata/"
 url_parts = "runId.siteId.scriptName.timeStamp"

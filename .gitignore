@@ -1,8 +1,10 @@
 *~
 .sass-cache
 web_gui/vendor
+web_gui/install.php
 vendor
 composer.lock
-src/config.php
+config.ini
+
 
 
