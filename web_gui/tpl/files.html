@@ -1,0 +1,35 @@
+<form class="uk-container uk-container-center uk-form" action="import.php" method="post">
+  <h2>Files in {{tmpfolder}}</h2>
+  <input type="submit" class="uk-button uk-button-success" value="Import checked">
+  <table class="uk-table">
+    <caption>
+      This is a list of xhprof files that were found in the xhprof data directory.
+      Click the link to import them to Neo4J.
+    </caption>
+    <thead>
+      <tr>
+	<th>
+	  <input type="checkbox" id="chkToggleAll">
+	</th>
+	<th>Filename</th>
+	<th>Status</th>
+      </tr>
+    </thead>
+    <tbody>
+      {% for file in files %}
+      <tr>
+	<td>
+	  <input type="checkbox" name="filenames[]" value="{{file.filename}}">
+	</td>
+	<td>{{file.filename}}</td>
+	<td>
+	  {% if file.in_database %}
+	  [Imported]
+	  {% else %}
+	  <a href="import.php?file={{file.filename}}">Import now</a>
+	  {% endif %}
+      </tr>
+      {% endfor %}
+    </tbody>
+  </table>
+</form>

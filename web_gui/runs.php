@@ -8,19 +8,16 @@ $msgs = array();
  * Handle *.xhprof file upload
  */
 if (isset($_FILES['xhprof_file'])) {
-    $file = $_FILES['xhprof_file'];
-    if ($file['error'] === 0) {
-	$newfile = "/tmp/xhdata/{$file['name']}";
-	if (move_uploaded_file($file['tmp_name'], $newfile)) {
-	    $parser = new NewParser($file['name']);
-	    $parser->makeGraph();
-	    $msgs[] = "Imported {$newfile}";	    
-	} else {
-	    $errors[] = "Can't import {$file['tmp_name']}";
-	}
-    } else {
-	$errors[] = "Error uploading file. Received code {$file['error']}";
-    }
+    try {
+	$upload = new XhprofUpload($_FILES['xhprof_file']);
+	$newfile = $upload->save();
+	$import = new XhprofImport($newfile);
+	$import->makeGraph();
+	$msgs[] = "File ".basename($newfile)." imported successfully";
+	
+    } catch (Exception $e) {
+	$errors[] = $e->getMessage();
+    }   
 }
 /**
  * Get run data from DB

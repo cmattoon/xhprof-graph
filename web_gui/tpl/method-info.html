@@ -1,52 +1,64 @@
 <div class="uk-container uk-container-center">
-    <div class="uk-grid">
-	<div class="uk-width-1-1">
-	    <h2>Method Detail: {{class}} {{method}}</h2>
-	    {% if run and method %}
-	    <div class="uk-alert">
-		Clicking on a Run on this screen should take you to the 
-		per-run stats for this method (including child/parent funcs)
-	    </div>
-	    {% endif %}
-	    <table class="uk-table uk-table-condensed uk-table-hover">
-	      <caption>
-		This should show:
-		1) Average stats (@todo)
-		2) Individual stats, per run.
-		Maybe the calling method, too?		  
-	      </caption>
-		<thead>
-		    <tr>
-			<th>Class Name</th>
-			<th>Method Name</th>
-			<th>Run</th>
-			<th>Wall Time</th>
-			<th>CPU Usage</th>
-			<th>Memory Usage</th>
-			<th>Peak Mem Usage</th>
-		    </tr>
-		</thead>
-		<tbody>
-		    {% for klass in data %}
-		    <tr>
-			<td>
-			    <a href="class-info.php?class={{klass.class}}">
-				{{klass.class}}
-			    </a>
-			</td>
-			<td>{{klass.name}}</td>
-			<td>
-			    <a href="method-info.php?class={{klass.class}}&method={{method}}&run={{klass.run}}">
-				{{klass.run}}
-			    </a>
-			</td>
-			<td>{{klass.wt|number_format}}</td>
-			<td>{{klass.cpu|number_format}}</td>
-			<td>{{klass.mu|number_format}}</td>
-			<td>{{klass.pmu|number_format}}</td>
-		    </tr>		
-		    {% endfor %}
-	    </table>
-	</div>
+  <div class="uk-grid">
+    <div class="uk-width-1-1">
+      <h2>Method Detail: {{class}} {{method}}</h2>
+      {% if run and method %}
+      <div class="uk-alert">
+	Clicking on a Run on this screen should take you to the 
+	per-run stats for this method (including child/parent funcs)
+      </div>
+      {% endif %}
+      <table class="uk-table uk-table-condensed uk-table-hover">
+	<caption>
+	  This should show:
+	  1) Average stats (@todo)
+	  2) Individual stats, per run.
+	  Maybe the calling method, too?		  
+	</caption>
+	<thead>
+	  <tr>
+	    <th>Parent</th>
+	    
+	    <th>Class Name</th>
+	    <th>Method Name</th>
+	    <th>Run</th>
+	    <th>Count</th>
+	    <th>Wall Time</th>
+	    <th>CPU Usage</th>
+	    <th>Memory Usage</th>
+	    <th>Peak Mem Usage</th>
+	  </tr>
+	</thead>
+	<tbody>
+	  {% for klass in data %}
+	  <tr>
+	    <td>
+	      {% if klass.pclass %}
+	      <a href="class-info.php?class={{klass.pclass}}">{{klass.pclass}}</a>
+	      ::
+	      {% endif %}
+	      <a href="method-info.php?class={{klass.pclass}}&method={{klass.pname}}">{{klass.pname}}</a>
+	      
+	    </td>
+	    <td>
+	      <a href="class-info.php?class={{klass.class}}">
+		{{klass.class}}
+	      </a>
+	    </td>
+	    <td>{{klass.name}}</td>
+	    <td>
+	      <a href="method-info.php?class={{klass.class}}&method={{method}}&run={{klass.run}}">
+		{{klass.run}}
+	      </a>
+	    </td>
+	    <td>{{klass.ct}}</td>
+	    <td>{{klass.wt|number_format}}</td>
+	    <td>{{klass.cpu|number_format}}</td>
+	    <td>{{klass.mu|number_format}}</td>
+	    <td>{{klass.pmu|number_format}}</td>
+	  </tr>		
+	  {% endfor %}
+      </table>
     </div>
+  </div>
 </div>

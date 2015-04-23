@@ -6,8 +6,8 @@ define('SRC', realpath(dirname(__FILE__) . '/'));
 define('ROOT', realpath(SRC . '/../'));
 define('WEBROOT', ROOT . '/web_gui/');
 define('CONFIG', ROOT . '/config.ini');
-
-$config = Settings::load(CONFIG);
+$settings = new Settings();
+$config = $settings->load(CONFIG);
 if (empty($config)) {
     die("Failed to load file at " . CONFIG);
 }
