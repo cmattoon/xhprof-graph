@@ -1,7 +1,7 @@
 <?php
 
 class XhprofImport {
-    public $baseDir = '/tmp/xhdata/';
+    public $baseDir = '';
     protected $_file;
     protected $_client;
     protected $_raw;
@@ -28,6 +28,8 @@ class XhprofImport {
     public function __construct($file) {
 	$this->_client = new Everyman\Neo4j\Client('localhost', 7474);
 	$this->_client->getTransport()->setAuth('neo4j', 'password');
+        $settings = new Settings();
+        $this->baseDir = $settings->get('xhprof_dir');
 	$this->load($file);
     }
     /**
