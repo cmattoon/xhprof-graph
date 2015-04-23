@@ -1,0 +1,11 @@
+cd /var/www/vhosts
+git clone https://github.com/cmattoon/xhprof-graph.git
+/etc/apache2/sites-available/xhprof-graph.local
+<VirtualHost *:80>
+    ServerName xhprof-graph.local
+    DocumentRoot /var/www/vhosts/xhprof-graph/web_gui
+    <Directory /var/www/vhosts/xhprof-graph/web_gui>
+        Options -Indexes
+        AllowOverride all
+    </Directory>
+</VirtualHost>

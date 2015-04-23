@@ -3,5 +3,6 @@
 web_gui/vendor
 vendor
 composer.lock
+src/config.php
 
 
