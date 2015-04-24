@@ -8,6 +8,7 @@ class XhprofImport {
     protected $_nodes = array();
 
     const FDELIM = '.';
+
     /**
      * Imports all *.xhprof files from the specified directory.
      *
@@ -20,18 +21,33 @@ class XhprofImport {
 	    $p->makeGraph();
 	}
     }
+
+    /**
+     * Saves the run data directly from the output of xhprof_disable()
+     */
+    public static function saveRun($data, $filename) {
+        $import = new XhprofImport();
+        file_put_contents("{$import->baseDir}/{$filename}.xhprof");
+        $import = new XhprofImport("{$filename}.xhprof");
+        $import->makeGraph();
+    }
+
     /**
      * Constructor.
      * 
      * @param string $file The xhprof file to import.
      */
-    public function __construct($file) {
-	$this->_client = new Everyman\Neo4j\Client('localhost', 7474);
-	$this->_client->getTransport()->setAuth('neo4j', 'password');
+    public function __construct($file='') {
         $settings = new Settings();
         $this->baseDir = $settings->get('xhprof_dir');
-	$this->load($file);
+	$this->_client = new Everyman\Neo4j\Client($settings->get('DB_HOST'), $settings->get('DB_PORT'));
+	$this->_client->getTransport()->setAuth($settings->get('DB_USER'), $settings->get('DB_PASS'));
+
+        if (file_exists("{$this->baseDir}/".$file)) {
+            $this->load($file);
+        }
     }
+
     /**
      * Gets the raw data from the file.
      * Called by the constructor, but you can use this to import in a loop
@@ -61,7 +77,8 @@ class XhprofImport {
 	$parts = explode(self::FDELIM, $name);
 	return array($parts[0], $parts[1]);
     }
-    
+
+
     /**
      * Searches the DB for an existing match and returns it, or creates a new one.
      * @param string $method The method name.
@@ -111,7 +128,7 @@ class XhprofImport {
      */
     public function makeGraph() {
 	if (!$this->_raw) {
-	    return;
+	    return false;
 	}
 
 	$main = $this->getNode($this->runId.'::main()');
@@ -138,6 +155,7 @@ class XhprofImport {
 	    $main->setProperty($k, $v);
 	}
 	$main->save();
+        return true;
     }
 
     public function addChildCall(&$parent, &$child, $stats) {
@@ -148,5 +166,12 @@ class XhprofImport {
 	    $rel->setProperty($k, $v);
 	}
 	$rel->setProperty('runId', $this->runId)->save();
+    }
+
+    public function raw($raw=null) {
+        if (is_array($raw)) {
+            $this->_raw = $raw;
+        }
+        return $this->_raw;
     }
 }

@@ -1,0 +1,20 @@
+<div class="uk-container uk-container-center">
+  <h2>Run: {{runId}}</h2>
+  
+  <table class="uk-table">
+    <thead>
+      <tr>
+        <th>Run Id</th>
+        <th>Name</th>
+      </tr>
+    </thead>
+    <tbody>
+      {% for r in runs %}
+      <tr>
+        <td><a href="run-info.php?run={{r.runId}}">{{r.runId}}</a></td>
+        <td>{{r.name}}</td>
+      </tr>
+      {% endfor %}
+    </tbody>
+  </table>
+</div>

@@ -1,22 +1,23 @@
 <?php
 require_once('inc/config.php');
 $client = get_client();
-$run = _get('run');
+$script = _get('script');
+
 $runs = array();
 
-if ($run) {
+if ($script) {
     $query = "MATCH (n:Callable)
-WHERE (HAS(n.scriptName) AND HAS(n.runId) AND n.scriptName = {name})
-RETURN n.runId";
+WHERE (HAS(n.scriptName) AND HAS(n.runId) AND n.scriptName = {scriptName})
+RETURN n.runId, n.scriptName";
 
-    $q = new Everyman\Neo4j\Cypher\Query($client, $query, array('run'=>$run));
+    $q = new Everyman\Neo4j\Cypher\Query($client, $query, array('scriptName'=>$script));
     $res = $q->getResultSet();
 
     foreach ($res as $r) {
 	if ($r['n.runId']) {
 	    $runs[] = array(
 		'runId' => $r['n.runId'],
-		'name' => $r['n.name'],
+		'name' => $r['n.scriptName'],
 		'class' => $r['n.class'],
 		'ct' => $r['r.ct'],
 		'wt' => $r['r.wt'],
