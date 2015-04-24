@@ -58,4 +58,39 @@ class Method {
 	}
 	return $result;
     }
+
+    /**
+     * Returns an array of child methods called by this method.
+     * If 'run' is specified, returns specifics for that run. Otherwise, averages are returned.
+     *
+     * @param string $run
+     * @return array
+     */
+    public function getChildren($runId='') {
+        $qstr = "MATCH (n:Callable)<-[r:called]-(m:Callable)
+	WHERE (HAS(m.name) AND HAS(m.class) AND (m.class = {class} AND m.name = {name}))
+	    RETURN m.class, m.name, r.wt, r.ct, r.cpu, r.mu, r.pmu, r.runId, n.name, n.class
+	ORDER BY r.wt DESC, r.cpu DESC";
+
+	$vars = array('class' => $this->className, 'name' => $this->methodName);
+	$query = new Everyman\Neo4j\Cypher\Query($this->_client, $qstr, $vars);
+	$result = array();
+
+	foreach (($r = $query->getResultSet()) as $row) {
+	    if ($runId == '' || ($runId != '' && $row['r.runId'] == $runId)) {
+		$result[] = array(
+		    'pclass' => $row['m.class'],
+		    'pname' => $row['m.name'],
+		    'class' => $row['n.class'],
+		    'name' => $row['n.name'],
+		    'run' => $row['r.runId'],
+		    'wt' => $row['r.wt'],
+		    'cpu' => $row['r.cpu'],
+		    'mu' => $row['r.mu'],
+		    'pmu' => $row['r.pmu']
+		);
+	    }
+	}
+        return $result;
+    }
 }

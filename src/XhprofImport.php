@@ -143,7 +143,7 @@ class XhprofImport {
 	    if ($pNode && $cNode) {
 		$this->addChildCall($pNode, $cNode, $stats);
 		foreach ($stats as $k=>$v) {
-		    if (isset($main_stats[$k])) $main_stats[$k] = 0;
+		    if (!isset($main_stats[$k])) $main_stats[$k] = 0;
 		    $main_stats[$k] += $v;
 		}
 	    }

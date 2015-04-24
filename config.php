@@ -10,22 +10,6 @@ define('ROOT', __DIR__ . '/');
 define('SRC', ROOT . 'src/');
 define('WEBROOT', ROOT . 'web_gui/');
 
-class Config {
-    public static $val = array(
-        'db' => array(
-            'host' => 'localhost',
-            'port' => '7474',
-            'user' => 'neo4j',
-            'pass' => 'password'
-        ),
-    );
-    /**
-     * The XHProf data directory (Where *.xhprof files are stored)
-     */
-    public static $xhdata = "/tmp/xhprof/"; 
-}
-
-
 require_once(ROOT . 'vendor/autoload.php');
 require_once(SRC . 'functions.php');
 

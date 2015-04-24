@@ -1,16 +1,17 @@
 <?php
 require_once('inc/config.php');
 $client = get_client();
-$run = _get('run');
+$runId = _get('run');
 $runs = array();
 $script = '';
 
-if ($run) {
+if ($runId) {
     $ql = new QueryList();
-    $runs = $ql->getRunStats($run);
-    $script = $ql->getScriptNameFromRunId($run);
+    $run = new Run($runId);
+    $runs = $run->getRunStats();
+    $script = $ql->getScriptNameFromRunId($runId);
 }
 
 $tpl = new Template();
-$tpl->displayPage(array('runs' => $runs, 'runId' => $run, 
-			'bcrun' => $run, 'bcscript' => $script));
+$tpl->displayPage(array('runs' => $runs, 'runId' => $runId, 
+			'bcrun' => $runId, 'bcscript' => $script));
