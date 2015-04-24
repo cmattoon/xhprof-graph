@@ -38,10 +38,8 @@ class XhprofImport {
      * @param string $file The xhprof file to import.
      */
     public function __construct($file='') {
-        $settings = new Settings();
-        $this->baseDir = $settings->get('xhprof_dir');
-	$this->_client = new Everyman\Neo4j\Client($settings->get('DB_HOST'), $settings->get('DB_PORT'));
-	$this->_client->getTransport()->setAuth($settings->get('DB_USER'), $settings->get('DB_PASS'));
+        $this->baseDir = Config::$xhdata;
+        $this->_client = get_client();
 
         if (file_exists("{$this->baseDir}/".$file)) {
             $this->load($file);

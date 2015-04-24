@@ -6,7 +6,7 @@ class FilesList {
     public $dir = '';
 
     public function __construct($dir='') {
-	$dir = ($dir) ? $dir : Settings::get('xhprof_dir');
+	$dir = ($dir) ? $dir : Config::$xhdata;
 	if (is_dir($dir) && is_readable($dir)) {
 	    $this->dir = realpath($dir);
 	}
