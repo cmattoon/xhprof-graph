@@ -27,6 +27,10 @@ This is my first attempt at working with a Graph DB. I'm not sure this is the be
 1. `git submodule init && git submodule update`
 2. `composer install`
 
+## Contributing
+Pull requests, ideas and suggestions welcome!
+
+github@cmattoon.com
 
 View on a per-run basis (per-pageview).
 ![Runs](gh/runs.png)
