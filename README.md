@@ -6,6 +6,7 @@ got a ways to go still, but this is the general idea.
 
 
 ##Why a Graph?
+ * No means to aggregate data natively in Xhprof (needs something)
  * Callgraphs are graphs, so why not store the data as such? 
  * Emphasis on relationships rather than structure.
  * Maybe find some cool relationships/queries that would be otherwise difficult/very slow in RDBMSs?
