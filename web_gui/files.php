@@ -1,5 +1,5 @@
 <?php
-require_once('../src/config.php');
+require_once('inc/config.php');
 
 $list = new FilesList(Config::$xhdata);
 /**
@@ -29,5 +29,5 @@ RETURN n.runId, n.scriptName
 $tpl = new Template();
 $tpl->displayPage(array(
     'files' => $file_list,
-    'tmpfolder' => xhprof_dir
+    'tmpfolder' => Config::$xhdata
 ));
