@@ -3,7 +3,7 @@ require_once('../src/config.php');
 @ini_set('max_execution_time', 0);
 
 $files = array();
-$xhdir=$settings->get('xhprof_dir');
+$xhdir=Config::$xhdata;
 if (isset($_POST['filenames'])) {
     foreach ($_POST['filenames'] as $file) {
 	$file = basename($file);

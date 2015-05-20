@@ -40,10 +40,8 @@ class XhprofImport {
     public function __construct($file='') {
         $this->baseDir = Config::$xhdata;
         $this->_client = get_client();
-
-        if (file_exists("{$this->baseDir}/".$file)) {
-            $this->load($file);
-        }
+        $file = basename($file);
+        $this->load($file);
     }
 
     /**
@@ -73,7 +71,7 @@ class XhprofImport {
     public function parseFilename($filename) {
 	$name = str_replace('.xhprof', '', basename($filename));
 	$parts = explode(self::FDELIM, $name);
-	return array($parts[0], $parts[1]);
+	return array($parts[0], $parts[2]);
     }
 
 

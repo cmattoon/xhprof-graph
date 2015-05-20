@@ -1,7 +1,7 @@
 <?php
 require_once('../src/config.php');
 
-$list = new FilesList(xhprof_dir);
+$list = new FilesList(Config::$xhdata);
 /**
  * Check the DB to see if we have data for these files
  */
