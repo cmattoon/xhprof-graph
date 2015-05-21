@@ -1,5 +1,5 @@
 <?php
-require_once('../src/config.php');
+require_once('inc/config.php');
 @ini_set('max_execution_time', 0);
 
 $files = array();

@@ -50,22 +50,33 @@
 .graph-widget {
   overflow: auto;
 }
-/* line 8, ../sass/widgets/_graph.scss */
+/* line 7, ../sass/widgets/_graph.scss */
+.graph-widget.wide {
+  width: 100%;
+}
+/* line 9, ../sass/widgets/_graph.scss */
+.graph-widget.wide canvas.graph {
+  height: 200px;
+  width: 900px;
+}
+/* line 14, ../sass/widgets/_graph.scss */
 .graph-widget canvas.graph {
+  margin: 0 auto;
+  display: block;
   border: 1px solid #000;
   background: #333;
 }
-/* line 12, ../sass/widgets/_graph.scss */
+/* line 20, ../sass/widgets/_graph.scss */
 .graph-widget canvas.graph.pie {
   height: 250px;
   width: 250px;
 }
-/* line 20, ../sass/widgets/_graph.scss */
+/* line 29, ../sass/widgets/_graph.scss */
 .graph-widget .legend ul.pie-legend {
   padding-left: 0;
   padding: 0;
 }
-/* line 24, ../sass/widgets/_graph.scss */
+/* line 33, ../sass/widgets/_graph.scss */
 .graph-widget .legend ul.pie-legend li {
   display: -moz-inline-stack;
   display: inline-block;
@@ -75,7 +86,7 @@
   *display: inline;
   width: 50%;
 }
-/* line 28, ../sass/widgets/_graph.scss */
+/* line 37, ../sass/widgets/_graph.scss */
 .graph-widget .legend ul.pie-legend li span {
   display: -moz-inline-stack;
   display: inline-block;
