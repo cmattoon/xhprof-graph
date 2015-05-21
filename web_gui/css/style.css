@@ -42,3 +42,53 @@
   z-index: 99;
   width: 5em;
 }
+
+/**
+ * Graph widget
+ */
+/* line 5, ../sass/widgets/_graph.scss */
+.graph-widget {
+  overflow: auto;
+}
+/* line 8, ../sass/widgets/_graph.scss */
+.graph-widget canvas.graph {
+  border: 1px solid #000;
+  background: #333;
+}
+/* line 12, ../sass/widgets/_graph.scss */
+.graph-widget canvas.graph.pie {
+  height: 250px;
+  width: 250px;
+}
+/* line 20, ../sass/widgets/_graph.scss */
+.graph-widget .legend ul.pie-legend {
+  padding-left: 0;
+  padding: 0;
+}
+/* line 24, ../sass/widgets/_graph.scss */
+.graph-widget .legend ul.pie-legend li {
+  display: -moz-inline-stack;
+  display: inline-block;
+  vertical-align: middle;
+  *vertical-align: auto;
+  zoom: 1;
+  *display: inline;
+  width: 50%;
+}
+/* line 28, ../sass/widgets/_graph.scss */
+.graph-widget .legend ul.pie-legend li span {
+  display: -moz-inline-stack;
+  display: inline-block;
+  vertical-align: middle;
+  *vertical-align: auto;
+  zoom: 1;
+  *display: inline;
+  -webkit-border-radius: 1em;
+  -moz-border-radius: 1em;
+  -ms-border-radius: 1em;
+  -o-border-radius: 1em;
+  border-radius: 1em;
+  height: 1em;
+  width: 1em;
+  margin: 0.25em;
+}
