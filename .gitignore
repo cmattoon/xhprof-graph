@@ -1,4 +1,5 @@
 *~
+.htaccess
 .sass-cache
 web_gui/vendor
 web_gui/install.php
