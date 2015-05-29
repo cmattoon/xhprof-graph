@@ -1,0 +1,47 @@
+/**
+ * Graph widget
+ */
+
+.graph-widget {
+    overflow: auto;
+    &.wide {
+        width: 100%;
+	canvas.graph {
+	    height: 200px;
+	    width: 900px;
+	}
+    }       
+    canvas.graph {
+	margin: 0 auto;
+	display: block;
+	border: 1px solid #000;
+	background: #333;
+
+	&.pie {
+	    height: 250px;
+	    width: 250px;
+	}
+    }
+
+
+    .legend {
+	
+	ul.pie-legend {
+	    padding-left: 0;
+	    padding: 0;
+
+	    li {
+		@include inline-block;
+		width: 50%;
+		
+		span {
+		    @include inline-block;
+		    @include border-radius(1em);
+		    height: 1em;
+		    width: 1em;
+		    margin:0.25em;
+		}
+	    }
+	}
+    }
+}

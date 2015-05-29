@@ -1,4 +1,12 @@
 <div class="uk-container uk-container-center">
+  <div class="uk-grid">
+    <div class="graph-widget wide">
+      <canvas id="gRunTime" class="graph"></canvas>
+    </div>
+  </div>
+</div>
+
+<div class="uk-container uk-container-center">
   {% for msg in msgs %}
   <div class="uk-alert uk-alert-success">{{msg}}</div>
   {% endfor %}
@@ -63,3 +71,4 @@
 	</div>
     </div>
 </div>
+<script src="js/pages/runs.js"></script>

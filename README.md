@@ -6,6 +6,7 @@ got a ways to go still, but this is the general idea.
 
 
 ##Why a Graph?
+ * No means to aggregate data natively in Xhprof (needs something)
  * Callgraphs are graphs, so why not store the data as such? 
  * Emphasis on relationships rather than structure.
  * Maybe find some cool relationships/queries that would be otherwise difficult/very slow in RDBMSs?
@@ -27,6 +28,10 @@ This is my first attempt at working with a Graph DB. I'm not sure this is the be
 1. `git submodule init && git submodule update`
 2. `composer install`
 
+## Contributing
+Pull requests, ideas and suggestions welcome!
+
+github@cmattoon.com
 
 View on a per-run basis (per-pageview).
 ![Runs](gh/runs.png)

@@ -29,4 +29,4 @@ RETURN n.runId, n.scriptName";
     }
 }
 $tpl = new Template();
-$tpl->displayPage(array('runs' => $runs, 'runId' => $run));
+$tpl->displayPage(array('runs' => $runs, 'runData' => json_encode($runs)));
