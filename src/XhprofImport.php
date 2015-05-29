@@ -133,6 +133,7 @@ class XhprofImport {
 	$main->setProperty('runId', $this->runId)->save();
 	$main->setProperty('scriptName', $this->script)->save();
 	$main_stats = array();
+        ksort($this->_raw);
 	foreach ($this->_raw as $callable => $stats) {
 	    if ($callable == 'main()') continue;
 	    list($parent, $child) = explode('==>', $callable);
