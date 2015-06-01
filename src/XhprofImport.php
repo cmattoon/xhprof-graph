@@ -5,7 +5,7 @@ class XhprofImport {
     protected $_file;
     protected $_client;
     protected $_raw;
-    protected $_nodes = array();
+    protected static $_nodes = array();
 
     const FDELIM = '.';
 
@@ -80,7 +80,7 @@ class XhprofImport {
      * @param string $method The method name.
      */
     public function getNode($method) {
-	if (!isset($this->_nodes[$method]) || empty($this->_nodes[$method])) {
+	if (!isset(self::$_nodes[$method]) || empty(self::$_nodes[$method])) {
 	    $name = $method;
 	    $class = '';
 	    if (strpos($method, '::')) {
@@ -101,7 +101,7 @@ class XhprofImport {
 	    if ($result) {
 		foreach ($result as $row) {
 		    if (($row['x']->getProperty('name') == $name) && ($row['x']->getProperty('class') == $class)) {
-			$this->_nodes[$method] = $row['x'];
+			self::$_nodes[$method] = $row['x'];
 			$found = true;
 			break;
 		    }
@@ -112,10 +112,10 @@ class XhprofImport {
 		$node = $this->_client->makeNode()->setProperty('name', $name)->save();
 		$node->setProperty('class', $class)->save();
 		$node->addLabels(array($this->_client->makeLabel('Callable')));
-		$this->_nodes[$method] = $node;
+		self::$_nodes[$method] = $node;
 	    }
 	}
-	$x = &$this->_nodes[$method];
+	$x = &self::$_nodes[$method];
 	return $x;
     }
 
@@ -141,22 +141,27 @@ class XhprofImport {
 
 	    if ($pNode && $cNode) {
 		$this->addChildCall($pNode, $cNode, $stats);
+
 		foreach ($stats as $k=>$v) {
 		    if (!isset($main_stats[$k])) $main_stats[$k] = 0;
 		    $main_stats[$k] += $v;
 		}
 	    }
 	}
+
 	// Write overall stats for main()
 	foreach ($main_stats as $k => $v) {
 	    $main->setProperty($k, $v);
 	}
+
 	$main->save();
+
         return true;
     }
 
     public function addChildCall(&$parent, &$child, $stats) {
-	$rels = $parent->getRelationships(array('called'));
+        // This is super-slow.
+        //$rels = $parent->getRelationships(array('called'));
 	$found = false;
 	$rel = $parent->relateTo($child, 'called');
 	foreach ($stats as $k => $v) {
