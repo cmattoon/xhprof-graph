@@ -54,7 +54,7 @@ class XhprofImport {
     public function load($file) {
 	if (file_exists($this->baseDir . $file)) {
 	    $this->_file = "{$this->baseDir}{$file}";
-	    $this->_raw = unserialize(file_get_contents($this->_file));
+	    $this->raw(unserialize(file_get_contents($this->_file)));
 	    list($this->runId, $this->script) = $this->parseFilename($file);
 	} else {
 	    die("File {$this->baseDir}{$file} doesn't exist");
@@ -71,7 +71,12 @@ class XhprofImport {
     public function parseFilename($filename) {
 	$name = str_replace('.xhprof', '', basename($filename));
 	$parts = explode(self::FDELIM, $name);
-	return array($parts[0], $parts[2]);
+        if (sizeof($parts) === 3) {
+            return array($parts[0], $parts[2]);
+        } elseif (sizeof($parts) == 2) {
+            return array($parts[0], $parts[1]);
+        }
+        return array($parts[0], 'unset');
     }
 
 
