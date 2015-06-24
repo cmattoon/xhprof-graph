@@ -72,11 +72,11 @@ var jsonPmu = {{jsonPmu | raw}};
 			    </a>
 			    {% endif %}
 			</td>
-			<td>{{run.ct}}</td>
-			<td>{{run.wt}}</td>
-			<td>{{run.cpu}}</td>
-			<td>{{run.mu}}</td>
-			<td>{{run.pmu}}</td>
+			<td>{{run.ct|number_format}}</td>
+			<td>{{run.wt|number_format}}</td>
+			<td>{{run.cpu|number_format}}</td>
+			<td>{{run.mu|number_format}}</td>
+			<td>{{run.pmu|number_format}}</td>
 		    </tr>		
 		    {% endfor %}
 	    </table>
