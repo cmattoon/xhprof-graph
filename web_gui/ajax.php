@@ -1,10 +1,12 @@
 <?php
-require_once('../src/config.php');
-$cmd = (isset($_GET['cmd']) ? $_GET['cmd'] : '');
-$cmd = explode(" ", $cmd);
-$cmd = $cmd[0];
-$output = "Command '{$cmd}' not recognized";
+require_once('inc/config.php');
 
-die(json_encode(array(
-    'output' => $output,
-    'cssClass' => 'jt-error')));
+$page = basename(_request('page'));
+$ajax_file = "ajax/{$page}.php";
+
+if (file_exists($ajax_file)) {
+    require_once($ajax_file);
+}
+
+$ajax = new AjaxResponse(null, array('Invalid AJAX request.'));
+die($ajax->output());
