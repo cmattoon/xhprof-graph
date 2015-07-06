@@ -1,9 +1,10 @@
 <?php
 require_once('inc/config.php');
+// @todo - fix this
 @ini_set('max_execution_time', 0);
 
 $files = array();
-$xhdir=Config::$xhdata;
+$xhdir = Config::$xhdata;
 if (isset($_POST['filenames'])) {
     foreach ($_POST['filenames'] as $file) {
 	$file = basename($file);
@@ -12,17 +13,11 @@ if (isset($_POST['filenames'])) {
 	}
     }
 }
-error_log(json_encode($files));
+
 $result = array();
 foreach ($files as $file) {
-    error_log("Making graph..");
     $import = new XhprofImport($file);
-    if (($res = $import->makeGraph())) {
-        error_log("Created graph");
-    } else {
-        error_log("No graph");
-    }
-    
+    $res = $import->makeGraph();    
     $result[$file] = $res;
 }
 

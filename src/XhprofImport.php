@@ -83,8 +83,10 @@ class XhprofImport {
     /**
      * Searches the DB for an existing match and returns it, or creates a new one.
      * @param string $method The method name.
+     * @param bool $create (default True) If false, returns False if node does not exist.
+     * @return mixed node object or false
      */
-    public function getNode($method) {
+    public function getNode($method, $create=true) {
 	if (!isset(self::$_nodes[$method]) || empty(self::$_nodes[$method])) {
 	    $name = $method;
 	    $class = '';
@@ -114,6 +116,10 @@ class XhprofImport {
 	    } 
 	    // If not found, create it
 	    if (!$found) {
+                // maybe...
+                if (!$create) {
+                    return false; 
+                }
 		$node = $this->_client->makeNode()->setProperty('name', $name)->save();
 		$node->setProperty('class', $class)->save();
 		$node->addLabels(array($this->_client->makeLabel('Callable')));
@@ -132,36 +138,38 @@ class XhprofImport {
 	    return false;
 	}
 
-	$main = $this->getNode($this->runId.'::main()');
-	$main->setProperty('runId', $this->runId)->save();
-	$main->setProperty('scriptName', $this->script)->save();
-	$main_stats = array();
-        ksort($this->_raw);
-	foreach ($this->_raw as $callable => $stats) {
-	    if ($callable == 'main()') continue;
-	    list($parent, $child) = explode('==>', $callable);
-	    
-	    $pNode = $this->getNode($parent);
-	    $cNode = $this->getNode($child);
-
-	    if ($pNode && $cNode) {
-		$this->addChildCall($pNode, $cNode, $stats);
-
-		foreach ($stats as $k=>$v) {
-		    if (!isset($main_stats[$k])) $main_stats[$k] = 0;
-		    $main_stats[$k] += $v;
-		}
-	    }
-	}
-
-	// Write overall stats for main()
-	foreach ($main_stats as $k => $v) {
-	    $main->setProperty($k, $v);
-	}
-
-	$main->save();
-
-        return true;
+	$main = $this->getNode($this->runId.'::main()', false);
+        if ($main === false) {
+            $main = $this->getNode($this->runId.'::main()');
+            $main->setProperty('runId', $this->runId)->save();
+            $main->setProperty('scriptName', $this->script)->save();
+            $main_stats = array();
+            ksort($this->_raw);
+            foreach ($this->_raw as $callable => $stats) {
+                if ($callable == 'main()') continue;
+                list($parent, $child) = explode('==>', $callable);
+                
+                $pNode = $this->getNode($parent);
+                $cNode = $this->getNode($child);
+                
+                if ($pNode && $cNode) {
+                    $this->addChildCall($pNode, $cNode, $stats);
+                    
+                    foreach ($stats as $k=>$v) {
+                        if (!isset($main_stats[$k])) $main_stats[$k] = 0;
+                        $main_stats[$k] += $v;
+                    }
+                }
+            }
+            // Write overall stats for main()
+            foreach ($main_stats as $k => $v) {
+                $main->setProperty($k, $v);
+            }
+            
+            $main->save();
+            return true;
+        }
+        return false; // Already exists
     }
 
     public function addChildCall(&$parent, &$child, $stats) {

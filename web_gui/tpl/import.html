@@ -1,12 +1,16 @@
 <div class="uk-container uk-container-center">
+  <h2>Import Results</h2>
   <ul>
-    {% for file in files %}
-    <li>{{file}}</li>
-    {% endfor %}
-  </ul>
-  <ul>
-    {% for file in results %}
-    <li>{{file}}</li>
+    {% for file,res in result %}
+    {% if res %}
+    <div class="uk-alert uk-alert-success">
+      Imported <strong>{{file}}</strong>
+    </div>
+    {% else %}
+    <div class="uk-alert uk-alert-danger">
+      Failed to import <strong>{{file}}</strong> (Does it already exist?)
+    </div>
+    {% endif %}
     {% endfor %}
   </ul>
 </div>
