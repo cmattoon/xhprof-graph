@@ -12,11 +12,3 @@ define('WEBROOT', ROOT . 'web_gui/');
 
 require_once(ROOT . 'vendor/autoload.php');
 require_once(SRC . 'functions.php');
-
-
-function get_client() {
-    $client = new Everyman\Neo4j\Client(Config::$val['db']['host'], Config::$val['db']['port']);
-    $client->getTransport()->setAuth(Config::$val['db']['user'], Config::$val['db']['pass']);
-    return $client;
-}
-
