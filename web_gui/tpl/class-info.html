@@ -1,3 +1,41 @@
+<script>
+var jsonWt = {{jsonWt | raw}};
+var jsonCpu = {{jsonCpu | raw}};
+var jsonMu = {{jsonMu | raw}};
+var jsonPmu = {{jsonPmu | raw}};
+</script>
+<div class="uk-container uk-container-center">
+    <div class="uk-grid">
+	<div class="uk-width-1-4">
+	    <div class="graph-widget">
+		<h3 class="title">Top 10: Wall Time</h3>
+		<canvas class="pie graph" id="gClassWt"></canvas>
+		<div class="legend"></div>
+	    </div>
+	</div>
+	<div class="uk-width-1-4">
+	    <div class="graph-widget">
+		<h3 class="title">Top 10: CPU</h3>
+		<canvas class="pie graph" id="gClassCpu"></canvas>
+		<div class="legend"></div>
+	    </div>
+	</div>
+	<div class="uk-width-1-4">
+	    <div class="graph-widget">
+		<h3 class="title">Top 10: Memory Use</h3>
+		<canvas class="pie graph" id="gClassMu"></canvas>
+		<div class="legend"></div>
+	    </div>
+	</div>
+	<div class="uk-width-1-4">
+	    <div class="graph-widget">
+		<h3 class="title">Top 10: Peak Mem Use</h3>
+		<canvas class="pie graph" id="gClassPmu"></canvas>
+		<div class="legend"></div>
+	    </div>
+	</div>
+    </div>
+</div>
 <div class="uk-container uk-container-center">
     <div class="uk-grid">
 	<div class="uk-width-1-1">
@@ -39,3 +77,4 @@
 	</div>
     </div>
 </div>
+<script src="js/pages/class-info.js"></script>
