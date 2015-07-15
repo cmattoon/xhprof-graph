@@ -8,7 +8,7 @@ $script = '';
 if ($runId) {
     $ql = new QueryList();
     $run = new Run($runId);
-    $runs = $run->getRunStats(true, array('r.wt'=>'desc','r.cpu'=>'desc'));
+    $runs = $run->getRunStats(true);
     $script = $ql->getScriptNameFromRunId($runId);
     $jsonWt = $run->getJSONForPieChart('wt');
     $jsonCpu = $run->getJSONForPieChart('cpu');

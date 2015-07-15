@@ -49,10 +49,18 @@ var jsonPmu = {{jsonPmu | raw}};
 		    <tr>
 			<th>Method</th>
 			<th>Count</th>
-			<th>Wall Time</th>
-			<th>CPU</th>
-			<th>Mem Usage</th>
-			<th>Peak Mem Usage</th>
+
+                        <th>Incl. Wall Time</th>
+			<th>Excl. Wall Time</th>
+
+			<th>Incl. CPU</th>
+			<th>Excl. CPU</th>
+
+			<th>Incl. Mem Usage</th>
+			<th>Excl. Mem Usage</th>
+
+			<th>Incl. Peak Mem Usage</th>
+			<th>Excl. Peak Mem Usage</th>
 		    </tr>
 		</thead>
 		<tbody>
@@ -73,10 +81,18 @@ var jsonPmu = {{jsonPmu | raw}};
 			    {% endif %}
 			</td>
 			<td>{{run.ct|number_format}}</td>
-			<td>{{run.wt|number_format}}</td>
-			<td>{{run.cpu|number_format}}</td>
-			<td>{{run.mu|number_format}}</td>
-			<td>{{run.pmu|number_format}}</td>
+
+			<td class="inc">{{run.inc_wt|number_format}}</td>
+			<td class="exc">{{run.exc_wt|number_format}}</td>
+
+			<td class="inc">{{run.inc_cpu|number_format}}</td>
+			<td class="exc">{{run.exc_cpu|number_format}}</td>
+
+			<td class="inc">{{run.inc_mu|number_format}}</td>
+			<td class="exc">{{run.exc_mu|number_format}}</td>
+
+			<td class="inc">{{run.inc_pmu|number_format}}</td>
+			<td class="exc">{{run.exc_pmu|number_format}}</td>
 		    </tr>		
 		    {% endfor %}
 	    </table>
