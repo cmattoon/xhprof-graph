@@ -103,3 +103,23 @@
   width: 1em;
   margin: 0.25em;
 }
+
+/* line 5, ../sass/style.scss */
+tr.methods {
+  display: none;
+}
+
+/* line 9, ../sass/style.scss */
+.method-tag {
+  display: -moz-inline-stack;
+  display: inline-block;
+  vertical-align: middle;
+  *vertical-align: auto;
+  zoom: 1;
+  *display: inline;
+  color: #AAA;
+  background: #043661;
+  padding: 0 0.25em;
+  font-size: 12px;
+  margin: 0.25em 0.5em;
+}

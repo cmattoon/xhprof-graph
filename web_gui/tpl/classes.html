@@ -1,44 +1,60 @@
 <div class="uk-container uk-container-center">
     <div class="uk-grid">
 	<div class="uk-width-1-1">
-	    <h2>Most Expensive Classes/Methods</h2>
+	    <h2>Classes/Methods</h2>
 	    <table class="uk-table uk-table-condensed uk-table-hover">
 	      <caption>
-		This is a list of the most expensive methods (and their class, if applicable).
-		It's sorted by AVG(cpu) DESC, AVG(wt) DESC.
+                This is a list of all the classes I know about, in alphabetical order.
+                (Functions not included)
 	      </caption>
 		<thead>
 		    <tr>
 			<th>Class Name</th>
-			<th>Method Name</th>
-			<th>Count (Avg)</th>
+                        <th># Methods</th>
+			<th># Calls</th>
 			<th>Wall Time (Avg)</th>
-			<th>CPU Usage (Avg)</th>
-			<th>Mem Usage (Avg)</th>
-			<th>Peak Mem (Avg)</th>
+                        <th>CPU (Avg)</th>
+                        <th>Memory (Avg)</th>
+                        <th>Peak Mem. (Avg)</th>
 		    </tr>
 		</thead>
 		<tbody>
 		    {% for klass in classes %}
 		    <tr>
 			<td>
-			    <a href="class-info.php?class={{klass.class}}">
-				{{klass.class}}
-			    </a>
+                          {% if klass.class == '' %}
+                          <a href="#" class="mr-toggle"><i class="uk-icon-plus-square-o"></i></a>
+                          &nbsp;&nbsp;
+                          (Functions)
+                          {% else %}
+                          <a href="#" class="mr-toggle"><i class="uk-icon-plus-square-o"></i></a>
+                          &nbsp;&nbsp;
+			  <a href="class-info.php?class={{klass.class}}">
+			    {{klass.class}}
+			  </a>
+                          {% endif %}
 			</td>
-			<td>
-			    <a href="method-info.php?class={{klass.class}}&method={{klass.name}}">
-				{{klass.name}}
-			    </a>
-			</td>
-			<td>{{klass.ct|number_format}}</td>
-			<td>{{klass.wt|number_format}}</td>
-			<td>{{klass.cpu|number_format}}</td>
-			<td>{{klass.mu|number_format}}</td>
-			<td>{{klass.pmu|number_format}}</td>
-		    </tr>		
+                        <td>{{klass.nmethods}}</td>
+			<td>{{klass.total_ct}}</td>
+			<td>{{klass.avg_wt|number_format}}</td>
+			<td>{{klass.avg_cpu|number_format}}</td>
+			<td>{{klass.avg_mu|number_format}}</td>
+                        <td>{{klass.avg_pmu|number_format}}</td>
+		    </tr>
+                    {% if klass.methods %}
+                    <tr class="methods">
+                      <td colspan="7">
+                        {% for method in klass.methods %}
+                        <a class="method-tag" href="method-info.php?class={{klass.class}}&method={{method}}">
+                          {{method}}
+                        </a>
+                        {% endfor %}
+                      </td>
+                    </tr>
+                    {% endif %}
 		    {% endfor %}
 	    </table>
 	</div>
     </div>
 </div>
+<script src="js/pages/classes.js"></script>
