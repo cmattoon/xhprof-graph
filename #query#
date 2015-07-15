@@ -1,0 +1,4 @@
+start n=node(*)
+match n-[:called*0..]->child
+where has(n.val) and not(child-[:parent_of]->())
+return n, sum(child.val) as leaf_sum

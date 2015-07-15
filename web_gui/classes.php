@@ -1,24 +1,43 @@
 <?php
 require_once('inc/config.php');
 $client = get_client();
-$query = "MATCH (n:Callable)<-[r:called]-(m) 
-WHERE (HAS(n.name) AND HAS(n.class) AND n.class <> '') 
-RETURN n.class, n.name, AVG(r.wt),SUM(r.ct),AVG(r.cpu),AVG(r.mu),AVG(r.pmu)
-ORDER BY AVG(r.cpu) DESC, AVG(r.wt) DESC";
+/**
+ * This query returns a list of classes and methods, along with total/avg stats.
+ * 
+ */
+$qstr = "
+MATCH (n:Callable)-[r:called]->(m)
+WHERE (HAS(n.name) and n.name <> 'main()')
+RETURN 
+    DISTINCT n.class,
+    COLLECT (DISTINCT n.name) AS methods,
+    COUNT(r) AS num_calls,
+    AVG(r.wt) AS avg_wt,
+    AVG(r.cpu) AS avg_cpu,
+    AVG(r.mu) AS avg_mu,
+    AVG(r.pmu) AS avg_pmu
+ORDER BY n.class ASC";
 
-$q = new Everyman\Neo4j\Cypher\Query($client, $query);
-$res = $q->getResultSet();
+$query = new Everyman\Neo4j\Cypher\Query($client, $qstr);
 
+$res = $query->getResultSet();
+//var_dump($res);
 $classes = array();
 foreach ($res as $r) {
+    $methods = array();
+    foreach ($r['methods'] as $m) {
+        $methods[] = $m;
+    }
+    natcasesort($methods);
     $classes[] = array(
 	'class' => $r['n.class'],
-	'name' => $r['n.name'],
-	'ct' => $r['SUM(r.ct)'],
-	'wt' => $r['AVG(r.wt)'],
-	'cpu' => $r['AVG(r.cpu)'],
-	'mu' => $r['AVG(r.mu)'],
-	'pmu' => $r['AVG(r.pmu)']
+        'nmethods' => sizeof($methods),
+        'methods' => $methods,
+	'total_ct' => $r['num_calls'],
+        'avg_wt' => $r['avg_wt'],
+        'avg_cpu' => $r['avg_cpu'],
+        'avg_mu' => $r['avg_mu'],
+        'avg_pmu' => $r['avg_pmu']
     );
 }
 
