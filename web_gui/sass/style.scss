@@ -1,7 +1,6 @@
 @import "shell";
 @import "widgets/graph";
 
-
 tr.methods {
     display: none;
 }
@@ -13,4 +12,11 @@ tr.methods {
     padding: 0 0.25em;
     font-size: 12px;
     margin: 0.25em 0.5em;
+}
+/* Styling for inclusive/exclusive stats */
+.inc {
+    color: #888;
+}
+.exc {
+ 
 }

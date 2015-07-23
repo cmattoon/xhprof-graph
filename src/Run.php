@@ -20,7 +20,7 @@ class Run {
      */
     public function getRunStats($force=false, $sort=null) {
 	if ($sort === null) {
-	    $sort = array('r.cpu' => 'desc', 'r.wt' => 'desc');
+	    $sort = array('inc_cpu' => 'desc', 'inc_wt' => 'desc');
 	}
 	$sSort = array();
 	foreach ($sort as $item => $dir) {
@@ -32,24 +32,38 @@ class Run {
 	    array_key_exists($sSort, Run::$statsCache[$this->runId]));
 
 	if ($force || !$cached) {
-            $query = new Everyman\Neo4j\Cypher\Query($this->_client,
-                                                     "MATCH (n:Callable)<-[r:called]-(m)
-WHERE ((HAS(r.runId) AND r.runId = {runId})
-AND (HAS(m.name) AND m.name = 'main()'))
-RETURN n.name, n.class, r.runId, r.wt, r.cpu, r.mu, r.pmu, r.ct, n.scriptName
-ORDER BY {$sSort} ",
-                                                     array('runId' => $this->runId));
+            $vars = array('runId' => $this->runId);
+            $query = new Everyman\Neo4j\Cypher\Query($this->_client, "
+                MATCH (c:Callable)<-[x:called]-(n:Callable)<-[r:called]-(m)
+                WHERE ((HAS(r.runId) AND r.runId = {runId})
+                    AND (HAS(m.name) AND m.name = 'main()'))
+                RETURN n.class, n.name, 
+                    r.ct,
+                    r.wt AS inc_wt, 
+                    r.cpu AS inc_cpu, 
+                    r.mu AS inc_mu, 
+                    r.pmu AS inc_pmu, 
+                    (r.wt-SUM(x.wt)) AS exc_wt, 
+                    (r.cpu-SUM(x.cpu)) AS exc_cpu, 
+                    (r.mu-SUM(x.mu)) AS exc_mu, 
+                    (r.pmu - SUM(x.pmu)) AS exc_pmu
+               ORDER BY {$sSort}", $vars);
+
             $stats = array();
             foreach (($result = $query->getResultSet()) as $row) {
 		$stats[] = array(
                     'runId' => $row['r.runId'],
                     'name' => $row['n.name'],
                     'class' => $row['n.class'],
-                    'ct' => $row['r.ct'],                           
-                    'wt' => $row['r.wt'],
-                    'cpu' => $row['r.cpu'],
-                    'mu' => $row['r.mu'],
-                    'pmu' => $row['r.pmu']
+                    'ct' => $row['r.ct'],
+                    'exc_wt' => $row['exc_wt'],
+                    'exc_cpu' => $row['exc_cpu'],
+                    'exc_mu' => $row['exc_mu'],
+                    'exc_pmu' => $row['exc_pmu'],
+                    'inc_wt' => $row['inc_wt'],
+                    'inc_cpu' => $row['inc_cpu'],
+                    'inc_mu' => $row['inc_mu'],
+                    'inc_pmu' => $row['inc_pmu'],
 		);
             }
 	    if (!array_key_exists($this->runId, Run::$statsCache)) {
@@ -65,8 +79,9 @@ ORDER BY {$sSort} ",
     public function getJSONForPieChart($field='wt') {
 	$fields = array('wt','cpu','mu','pmu');
 	$field = (in_array($field, $fields)) ? $field : 'wt';
+        $field = "exc_{$field}"; // Always display exclusive stats for graphs
 	$stats = $this->getRunStats(false, array(
-	    "r.{$field}" => 'desc'
+	    "{$field}" => 'desc'
 	));
 	$len = count($stats);
 	$data = array();
