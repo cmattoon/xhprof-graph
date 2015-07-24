@@ -104,12 +104,12 @@
   margin: 0.25em;
 }
 
-/* line 5, ../sass/style.scss */
+/* line 4, ../sass/style.scss */
 tr.methods {
   display: none;
 }
 
-/* line 9, ../sass/style.scss */
+/* line 8, ../sass/style.scss */
 .method-tag {
   display: -moz-inline-stack;
   display: inline-block;
@@ -122,4 +122,10 @@ tr.methods {
   padding: 0 0.25em;
   font-size: 12px;
   margin: 0.25em 0.5em;
+}
+
+/* Styling for inclusive/exclusive stats */
+/* line 17, ../sass/style.scss */
+.inc {
+  color: #888;
 }
