@@ -11,6 +11,8 @@ got a ways to go still, but this is the general idea.
  * Emphasis on relationships rather than structure.
  * Maybe find some cool relationships/queries that would be otherwise difficult/very slow in RDBMSs?
  * First useful application of a Graph DB, and I want to see what happens!
+ * Find all instances of functions/methods for refactoring, etc.
+
 
 ##Current Setup
 This is my first attempt at working with a Graph DB. I'm not sure this is the best (or even the correct) way to go about it, but it seems to work so far.
@@ -32,6 +34,9 @@ This is my first attempt at working with a Graph DB. I'm not sure this is the be
 Pull requests, ideas and suggestions welcome!
 
 github@cmattoon.com
+
+Pie charts!
+![Charts](gh/charts.png)
 
 View on a per-run basis (per-pageview).
 ![Runs](gh/runs.png)
