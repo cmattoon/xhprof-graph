@@ -148,8 +148,11 @@ class XhprofImport {
             foreach ($this->_raw as $callable => $stats) {
                 if ($callable == 'main()') continue;
                 list($parent, $child) = explode('==>', $callable);
-                
-                $pNode = $this->getNode($parent);
+                if ($parent == 'main()') {
+                    $pNode = $main;
+                } else {
+                    $pNode = $this->getNode($parent);
+                }
                 $cNode = $this->getNode($child);
                 
                 if ($pNode && $cNode) {
