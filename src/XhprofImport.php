@@ -93,10 +93,12 @@ class XhprofImport {
 	    if (strpos($method, '::')) {
 		list ($class, $name) = explode('::', $method);
 	    }
-	    if (in_array($class, array('run_init', 'load'))) {
-		return false;
-	    }
+
+            // Removed short-circuit for `run_init::*` and `load::*`, though semantically, 
+            // they shouldn't use the "Callable" label. 
+
 	    // Check to see if it exists
+            // Consider ($create) ? 'CREATE UNIQUE' : 'MATCH'...
 	    $query = new Everyman\Neo4j\Cypher\Query($this->_client, 
 						     'MATCH n 
                                                       WHERE (HAS(n.name) AND HAS(n.class)) 
@@ -114,6 +116,7 @@ class XhprofImport {
 		    }
 		}
 	    } 
+
 	    // If not found, create it
 	    if (!$found) {
                 // maybe...

@@ -35,20 +35,28 @@ class Run {
             $vars = array('runId' => $this->runId);
             $query = new Everyman\Neo4j\Cypher\Query($this->_client, "
                 MATCH (c:Callable)<-[x:called]-(n:Callable)<-[r:called]-(m)
-                WHERE ((HAS(r.runId) AND r.runId = {runId})
-                    AND (HAS(m.name) AND m.name = 'main()'))
+                WHERE (HAS(m.name) AND m.name = 'main()')
+                    AND (
+                        HAS(r.runId) AND r.runId = {runId} 
+                        AND HAS(x.runId) AND x.runId = {runId}
+                    )
                 RETURN n.class, n.name, 
                     r.ct,
                     r.wt AS inc_wt, 
+                        (r.wt - REDUCE(s=0, w in COLLECT(x.wt)|s+w)) AS exc_wt,
                     r.cpu AS inc_cpu, 
+                        (r.cpu - REDUCE(s=0, w in COLLECT(x.cpu)|s+w)) AS exc_cpu,
                     r.mu AS inc_mu, 
+                        (r.mu - REDUCE(s=0, w in COLLECT(x.mu)|s+w)) AS exc_mu,
                     r.pmu AS inc_pmu, 
-                    (r.wt-SUM(x.wt)) AS exc_wt, 
-                    (r.cpu-SUM(x.cpu)) AS exc_cpu, 
-                    (r.mu-SUM(x.mu)) AS exc_mu, 
-                    (r.pmu - SUM(x.pmu)) AS exc_pmu
+                        (r.pmu - REDUCE(s=0, w in COLLECT(x.pmu)|s+w)) AS exc_pmu
                ORDER BY {$sSort}", $vars);
-
+            /**
+             * The above reductions appear to be correct in the Neo4J console, 
+             * but don't match XHProf's native interface because of excluding
+             * the run_init:: and load:: calls.
+             * This should match up better once those are factored in.
+             */
             $stats = array();
             foreach (($result = $query->getResultSet()) as $row) {
 		$stats[] = array(
